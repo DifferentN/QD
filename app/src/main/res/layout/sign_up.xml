@@ -2,7 +2,7 @@
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical">
     <ImageView
             android:layout_width="match_parent"
@@ -31,17 +31,25 @@
                     android:layout_marginLeft="20dp"
             />
 
-            <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:id="@+id/signUpNameInput"
-                    android:layout_toRightOf="@+id/signUpName"
-                    android:hint="必填"
-                    android:textSize="16sp"
-                    android:background="@null"
+            <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="30dp"
-            />
+                    android:layout_toRightOf="@+id/signUpName"
+                    android:id="@+id/signUpNameInput"
+                    android:hint="必填"
+                    app:hintEnabled="true"
+                    app:passwordToggleEnabled="true"
+                    android:layout_marginRight="20dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            >
+                <android.support.design.widget.TextInputEditText
+                        android:inputType="textPassword"
+                        android:ems="10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+            </android.support.design.widget.TextInputLayout>
         </RelativeLayout>
 
         <RelativeLayout

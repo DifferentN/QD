@@ -27,7 +27,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/testMDtext2"
             app:passwordToggleEnabled="true"
-
             app:hintEnabled="false"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
     >
