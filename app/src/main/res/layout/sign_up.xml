@@ -21,17 +21,21 @@
                     android:layout_alignParentRight="true"
                     android:id="@+id/signUpNameInput"
                     android:hint="姓名"
-
+                    app:counterMaxLength="6"
+                    app:counterOverflowTextAppearance="@style/HintError"
                     app:hintEnabled="true"
+                    app:errorEnabled="true"
                     android:layout_marginRight="20dp"
                     android:layout_marginLeft="20dp"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             >
                 <android.support.design.widget.TextInputEditText
                         android:textSize="12sp"
+                        android:id="@+id/signUpNameTextInput"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
 
+                />
             </android.support.design.widget.TextInputLayout>
         </RelativeLayout>
 
@@ -49,11 +53,12 @@
 
                     android:hint="手机号"
                     app:hintEnabled="true"
-
+                    app:errorEnabled="true"
                     android:layout_marginRight="20dp"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             >
                 <android.support.design.widget.TextInputEditText
+                        android:id="@+id/signUpNamePhoneTextInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
@@ -89,14 +94,16 @@
             </android.support.design.widget.TextInputLayout>
         </RelativeLayout>
 
-        <RelativeLayout
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_marginTop="20dp">
 
             <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="6"
                     android:id="@+id/signUpIdentifyCodeInput"
                     android:layout_alignParentRight="true"
                     android:layout_marginLeft="20dp"
@@ -113,15 +120,19 @@
             <android.support.design.button.MaterialButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="获取验证码"
+                    android:layout_toRightOf="@+id/signUpIdentifyCodeInput"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
             />
-        </RelativeLayout>
+        </LinearLayout>
 
         <Button android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="66dp"
                 android:text="注册"
                 android:layout_gravity="center_horizontal"
+                android:onClick="signUpFinish"
         />
     </LinearLayout>
 
