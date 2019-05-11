@@ -23,11 +23,14 @@ class ClockInButton @JvmOverloads constructor(
     var alpha  = 0
     var touchX :Float= 0f
     var touchY :Float= 0f
+    var writerPaint:Paint = Paint()
+    var textSize = 0
     init {
 
         attrs?.let{
             val arrayType = context.obtainStyledAttributes(attrs, R.styleable.circleBt,defStyleAttr,0)
             myColor = arrayType.getColor(R.styleable.circleBt_circleColor,Color.BLUE)
+            textSize = arrayType.getInt(R.styleable.circleBt_centerTextSize,12)
             arrayType.recycle()
         }
         paint.color = myColor
@@ -35,6 +38,9 @@ class ClockInButton @JvmOverloads constructor(
 
         wavePaint.color = Color.WHITE
         wavePaint.alpha = 80
+
+        writerPaint.color = Color.BLACK
+        writerPaint.textSize = textSize.toFloat()
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -48,9 +54,15 @@ class ClockInButton @JvmOverloads constructor(
         radius = reckonRadius(myHeight,myWidth)
 
 
+//        canvas？.drawText("签到",myWidth/2f,myHeight/2f)
         canvas?.drawCircle(myWidth/2f,myHeight/2f,radius.toFloat(),paint)
 //        wavePaint.alpha = alpha
+        canvas?.drawText("签到",myWidth/2f,myHeight/2f,writerPaint)
+
         canvas?.drawCircle(touchX,touchY,waveRadius.toFloat(),wavePaint)
+
+
+
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {

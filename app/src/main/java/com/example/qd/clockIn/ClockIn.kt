@@ -21,7 +21,10 @@ import com.baidu.location.LocationClientOption
 import com.example.qd.R
 import com.example.testmap.MyLocationListener
 import kotlinx.android.synthetic.main.clock_in.*
+import java.text.SimpleDateFormat
 import java.time.Clock
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.max
 import kotlin.math.min
 
@@ -62,7 +65,7 @@ class ClockIn: AppCompatActivity() {
 
         var item:ClockInItem = ClockInItem("2019-12-12 签到","13:32","已签到")
         itemData.add(item)
-        clockInInfos.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,true)
+        clockInInfos.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
         clockInAdapter = ClockInAdapter(this,itemData)
         clockInInfos.adapter = clockInAdapter
         clockInInfos.itemAnimator = DefaultItemAnimator()
@@ -167,5 +170,20 @@ class ClockIn: AppCompatActivity() {
         })
         anim.start()
         Log.i("LZH","start wave")
+
+        var describe = getDay()+" 签到"
+        var time = getHourMinute()
+        var item :ClockInItem = ClockInItem(describe,time,"签到")
+        itemData.add(item)
+        clockInAdapter?.updateData()
+
+    }
+    fun getDay():String{
+        var simpleDateFormat:SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+        return simpleDateFormat.format(Date())
+    }
+    fun getHourMinute():String{
+        var simpleDateFormat:SimpleDateFormat = SimpleDateFormat("HH:mm")
+        return simpleDateFormat.format(Date())
     }
 }

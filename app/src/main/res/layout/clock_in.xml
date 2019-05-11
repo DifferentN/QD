@@ -27,11 +27,13 @@
     <!--/>-->
 
     <com.example.qd.view.ClockInButton
-            android:layout_width="300dp"
-            android:layout_height="300dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_gravity="center"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
             app:circleColor = "@color/colorRed"
+            app:centerTextSize = "12"
             android:id="@+id/waveButton"
             android:onClick="wave"
     />
@@ -44,7 +46,9 @@
     <!--/>-->
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+    >
 
         <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"

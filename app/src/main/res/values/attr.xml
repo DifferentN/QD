@@ -2,5 +2,6 @@
 <resources>
     <declare-styleable name="circleBt">
         <attr name="circleColor" format="color"/>
+        <attr name="centerTextSize" format="integer"/>
     </declare-styleable>
 </resources>

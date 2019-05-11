@@ -16,7 +16,7 @@ class ClockInAdapter constructor(context: Context,dataList: MutableList<ClockInI
         this.itemList = dataList
     }
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ViewHolder {
-        var view: View = LayoutInflater.from(parent.context).inflate(R.layout.clock_in_info,parent)
+        var view: View = LayoutInflater.from(parent.context).inflate(R.layout.clock_in_info,parent,false)
         var holder: ViewHolder = ViewHolder(view)
         return holder
     }
@@ -32,4 +32,7 @@ class ClockInAdapter constructor(context: Context,dataList: MutableList<ClockInI
         holder.timeView.text = item?.clockTime?:"unknownTime"
     }
 
+    fun updateData(){
+        notifyDataSetChanged()
+    }
 }
