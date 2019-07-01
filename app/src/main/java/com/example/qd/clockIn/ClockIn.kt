@@ -5,33 +5,41 @@ import android.animation.Animator.*
 import android.animation.ValueAnimator
 import android.graphics.Point
 import android.os.Bundle
+import android.os.Message
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import android.view.Window
-import android.view.animation.LinearInterpolator
-import android.widget.LinearLayout
 import android.widget.Toast
 import com.baidu.location.BDAbstractLocationListener
 import com.baidu.location.BDLocation
 import com.baidu.location.LocationClient
 import com.baidu.location.LocationClientOption
 import com.example.qd.R
-import com.example.testmap.MyLocationListener
+import com.example.qd.dao.CourseInfo
 import kotlinx.android.synthetic.main.clock_in.*
-import java.time.Clock
+import kotlinx.android.synthetic.main.top_block.*
+import okhttp3.*
+import java.io.IOException
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.max
-import kotlin.math.min
-
-
 
 
 class ClockIn: AppCompatActivity() {
+    private var identifyUrl = "http://47.106.131.133:3000/roll"
     var mLocationClient : LocationClient? = null
     val itemData: MutableList<ClockInItem> = ArrayList<ClockInItem>()
     var clockInAdapter : ClockInAdapter?=null
+    var courseInfo:CourseInfo? = null
+    companion object{
+        val Course_Info:String = "Course_Info"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         this.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -57,12 +65,20 @@ class ClockIn: AppCompatActivity() {
 
         init()
         initClockList()
+        initData()
+    }
+    fun initData(){
+        courseInfo = intent.getParcelableExtra<CourseInfo>("Course_Info")
+        topMiddleText.text = courseInfo?.courseName
+        topLeftImageView.setImageResource(0)
+        topLeftTextView.text = ""
+        topRightTextView.text = ""
     }
     fun initClockList(){
 
         var item:ClockInItem = ClockInItem("2019-12-12 签到","13:32","已签到")
         itemData.add(item)
-        clockInInfos.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,true)
+        clockInInfos.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
         clockInAdapter = ClockInAdapter(this,itemData)
         clockInInfos.adapter = clockInAdapter
         clockInInfos.itemAnimator = DefaultItemAnimator()
@@ -167,5 +183,48 @@ class ClockIn: AppCompatActivity() {
         })
         anim.start()
         Log.i("LZH","start wave")
+        addItem()
+    }
+
+    fun addItem(){
+        var item:ClockInItem = ClockInItem(getDay()+" 签到",getHour(),"已签到")
+        clockInAdapter?.addItem(item)
+        clockInAdapter?.notifyDataSetChanged()
+    }
+    fun sendQianDaoInfo(){
+        var okHttpClient: OkHttpClient = OkHttpClient()
+        var id = courseInfo?.courseId
+        var place = courseInfo?.coursePlace
+        var state = 1
+        if(Random().nextInt(3)>=2){
+            state = 3
+        }
+        val requestBody = FormBody.Builder().add("id", id).add("time", getDayHour())
+            .add("position",place).add("state",state.toString()).build()
+        var request: Request = Request.Builder().url(identifyUrl).method("POST",requestBody).build()
+        var call: Call = okHttpClient.newCall(request)
+        call.enqueue(object: Callback {
+            override fun onFailure(call: Call?, e: IOException?) {
+
+            }
+
+            override fun onResponse(call: Call?, response: Response?) {
+                var body:String = response!!.body().string()
+                Log.i("LZH","code: "+response!!.code()+" body: "+body)
+            }
+
+        })
+    }
+    fun getDay():String{
+        var df:DateFormat = SimpleDateFormat("yyyy-mm-dd")
+        return df.format(Date())
+    }
+    fun getHour():String{
+        var df:DateFormat = SimpleDateFormat("HH:mm")
+        return df.format(Date())
+    }
+    fun getDayHour():String{
+        var df:DateFormat = SimpleDateFormat("yyyy-mm-dd HH:mm")
+        return df.format(Date())
     }
 }
