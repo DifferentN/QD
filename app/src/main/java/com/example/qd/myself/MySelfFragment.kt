@@ -7,9 +7,12 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.qd.MyApplication
 
 import com.example.qd.R
+import com.example.qd.dao.PersonalInfo
 import com.example.qd.setting.Setting
+import kotlinx.android.synthetic.main.my_self_fragment.*
 
 class MySelfFragment : Fragment() {
 
@@ -30,7 +33,12 @@ class MySelfFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MySelfViewModel::class.java)
         // TODO: Use the ViewModel
+        initData()
     }
-
+    fun initData(){
+        var personalInfo = (activity!!.application as MyApplication).getPersonalInfo()
+        mySelfName.text = "姓名: "+personalInfo?.personalName
+        mySelfPhone.text = "学校: "+personalInfo?.school
+    }
 
 }

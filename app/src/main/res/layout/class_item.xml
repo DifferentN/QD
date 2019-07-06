@@ -10,29 +10,60 @@
             android:id="@+id/classIcon"
             android:layout_centerVertical="true"
             android:background="@drawable/class_icon"
+            android:layout_marginLeft="8dp"
             android:layout_marginRight="16dp"
     />
     <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/classInfo"
             android:layout_toRightOf="@+id/classIcon"
             android:orientation="vertical">
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:id="@+id/classNumber"
-                  android:text="default"
-        />
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
                   android:id="@+id/className"
+                  android:textSize="18sp"
+                  android:layout_marginBottom="3dp"
                   android:text="default"
         />
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:id="@+id/teacher"
-                  android:text="default"
-        />
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_marginBottom="3dp"
+                      android:orientation="horizontal">
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:textSize="12dp"
+                      android:text="班级号:"
+                      android:layout_marginRight="8dp"
+            />
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/classNumber"
+                      android:textSize="12sp"
+                      android:text="default"
+            />
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_marginBottom="3dp"
+                      android:orientation="horizontal">
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="教师姓名:"
+                      android:layout_marginRight="8dp"
+                      android:textSize="12sp"
+            />
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/teacher"
+                      android:textSize="12sp"
+                      android:text="default"
+            />
+
+        </LinearLayout>
+
     </LinearLayout>
     <ImageButton
             android:layout_width="wrap_content"

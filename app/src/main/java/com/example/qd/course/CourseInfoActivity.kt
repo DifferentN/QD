@@ -38,6 +38,7 @@ class CourseInfoActivity : AppCompatActivity() {
         teacherShow.text = courseInfo.teacherName
         courseTimeShow.text = courseInfo.courseTime
         coursePlaceShow.text = courseInfo.coursePlace
+        teacherShow.text = courseInfo.teacherName
     }
     fun qianDao(view:View){
         var intent:Intent = Intent(this,ClockIn::class.java)

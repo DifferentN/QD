@@ -11,7 +11,19 @@
     <include android:layout_width="match_parent"
              android:layout_height="wrap_content"
              layout="@layout/top_block"/>
+    <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输学校名称"
+            app:hintEnabled="true"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    >
+        <android.support.design.widget.TextInputEditText
+                android:id="@+id/joinSchoolName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
+    </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -20,7 +32,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
     >
         <android.support.design.widget.TextInputEditText
-                android:id="@+id/createCourseNumber"
+                android:id="@+id/joinCourseNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 

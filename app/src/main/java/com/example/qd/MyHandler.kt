@@ -12,5 +12,6 @@ class MyHandler: Handler() {
     override fun handleMessage(msg: Message?) {
 //        super.handleMessage(msg)
         netProcesser.process(msg!!.obj)
+
     }
 }

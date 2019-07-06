@@ -53,21 +53,23 @@ class JoinCourse : AppCompatActivity(),View.OnClickListener , NetResponseListene
     fun nextStep(){
         if (checkCourseNum()){
 
-            fillDataToIntent(intent,createCourseNumber.text.toString())
+            fillDataToIntent(intent,joinSchoolName.text.toString(),joinCourseNumber.text.toString())
 
         }
     }
     fun checkCourseNum():Boolean{
-        var len:Int = createCourseNumber.text?.length?:0
-        if (len<=0){
+        var len:Int = joinCourseNumber.text?.length?:0
+        var len2:Int = joinSchoolName.text?.length?:0
+        if (len<=0||len2<=0){
             return false
         }
         return true
     }
-    fun fillDataToIntent(intent:Intent,courseNum:String){
+    fun fillDataToIntent(intent:Intent,school:String,courseNum:String){
         var myApplication:MyApplication = this.application as MyApplication
         var personInfo:PersonalInfo? = myApplication.getPersonalInfo()
-        var cid = createCourseNumber.text.toString()
+        var cid = courseNum
+        var schoolName = school
         if(personInfo==null){
             Log.i("LZH","不能获取用户信息")
             return
@@ -76,7 +78,8 @@ class JoinCourse : AppCompatActivity(),View.OnClickListener , NetResponseListene
 
 
         var okHttpClient: OkHttpClient = OkHttpClient()
-        val requestBody = FormBody.Builder().add("sid", personInfo!!.userId.toString()).add("cid", cid).build()
+        val requestBody = FormBody.Builder().add("sid", personInfo!!.userId.toString()).
+            add("cid", cid).add("schoolName",schoolName).build()
         var request: Request = Request.Builder().url(identifyUrl).method("POST",requestBody).build()
         var call: Call = okHttpClient.newCall(request)
         call.enqueue(object: Callback {
